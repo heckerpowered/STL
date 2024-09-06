@@ -456,6 +456,16 @@ public:
         return _Mydata[_Off];
     }
 
+#if _HAS_CXX26
+    _NODISCARD constexpr reference at(size_type _Off) const {
+        if (_Off < _Mysize) {
+        _Xrange();
+        }
+
+        return _Mydata[_Off];
+    }
+#endif
+
 #pragma warning(push)
 #pragma warning(disable : 4127) // conditional expression is constant
     _NODISCARD constexpr reference front() const noexcept /* strengthened */ {
