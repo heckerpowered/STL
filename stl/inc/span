@@ -459,12 +459,12 @@ public:
 #if _HAS_CXX26
     _NODISCARD constexpr reference at(size_type _Off) const {
         if (_Off < _Mysize) {
-        _Xrange();
+            _Xrange();
         }
 
         return _Mydata[_Off];
     }
-#endif
+#endif // _HAS_CXX26
 
 #pragma warning(push)
 #pragma warning(disable : 4127) // conditional expression is constant
@@ -532,6 +532,10 @@ public:
         return rend();
     }
 #endif // _HAS_CXX23
+
+    [[noreturn]] static void _Xrange() {
+        _Xout_of_range("invalid span subscript");
+    }
 
     _NODISCARD constexpr pointer _Unchecked_begin() const noexcept {
         return _Mydata;
