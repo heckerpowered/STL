@@ -458,7 +458,7 @@ public:
 
 #if _HAS_CXX26
     _NODISCARD constexpr reference at(size_type _Off) const {
-        if (_Off < _Mysize) {
+        if (_Off >= _Mysize) {
             _Xrange();
         }
 
