@@ -1227,13 +1227,11 @@ namespace iterator_cust_swap_test {
 
     // N4928 [iterator.cust.swap]/4.3: "Otherwise, if the types T1 and T2 of E1 and E2 model
     // indirectly_movable_storable<T1, T2> and indirectly_movable_storable<T2, T1>..."
-    // clang-format off
     template <class T, class U = T>
-    concept bullet3 = !bullet1<T, U> && !bullet2<T, U> && indirectly_movable_storable<T, U>
-        && indirectly_movable_storable<U, T>;
+    concept bullet3 =
+        !bullet1<T, U> && !bullet2<T, U> && indirectly_movable_storable<T, U> && indirectly_movable_storable<U, T>;
 
     static_assert(bullet3<int*, long*> && can_iter_swap<int*, long*>);
-    // clang-format on
 
     template <int>
     struct unswap_proxy_ref {
@@ -1281,9 +1279,7 @@ namespace iterator_cust_swap_test {
             static_assert(false);
         }
 
-        // clang-format off
         static_assert(bullet2<S&, S&> && can_iter_swap<S&, S&>);
-        // clang-format on
 
         constexpr bool test() {
             {
@@ -3485,7 +3481,7 @@ namespace move_iterator_test {
     static_assert(
         !has_greater_eq<move_iterator<simple_random_iter<sentinel_base>>, move_sentinel<std::default_sentinel_t>>);
     static_assert(!three_way_comparable<move_iterator<simple_random_iter<sentinel_base>>,
-                  move_sentinel<std::default_sentinel_t>>);
+        move_sentinel<std::default_sentinel_t>>);
 
     // GH-3014 "<ranges>: list-initialization is misused"
     void test_gh_3014() { // COMPILE-ONLY

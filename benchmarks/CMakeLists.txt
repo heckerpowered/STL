@@ -1,7 +1,7 @@
 # Copyright (c) Microsoft Corporation.
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-cmake_minimum_required(VERSION 3.29.0)
+cmake_minimum_required(VERSION 3.30.0)
 project(msvc_standard_libraries_benchmarks LANGUAGES CXX)
 
 if(DEFINED STL_BINARY_DIR)
@@ -106,8 +106,11 @@ function(add_benchmark name)
     target_link_libraries(benchmark-${name} PRIVATE benchmark::benchmark)
 endfunction()
 
+add_benchmark(adjacent_difference src/adjacent_difference.cpp)
+add_benchmark(bitset_from_string src/bitset_from_string.cpp)
 add_benchmark(bitset_to_string src/bitset_to_string.cpp)
 add_benchmark(efficient_nonlocking_print src/efficient_nonlocking_print.cpp)
+add_benchmark(filesystem src/filesystem.cpp)
 add_benchmark(find_and_count src/find_and_count.cpp)
 add_benchmark(find_first_of src/find_first_of.cpp)
 add_benchmark(iota src/iota.cpp)
@@ -117,6 +120,7 @@ add_benchmark(mismatch src/mismatch.cpp)
 add_benchmark(path_lexically_normal src/path_lexically_normal.cpp)
 add_benchmark(priority_queue_push_range src/priority_queue_push_range.cpp)
 add_benchmark(random_integer_generation src/random_integer_generation.cpp)
+add_benchmark(remove src/remove.cpp)
 add_benchmark(replace src/replace.cpp)
 add_benchmark(search src/search.cpp)
 add_benchmark(std_copy src/std_copy.cpp)

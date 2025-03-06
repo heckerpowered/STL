@@ -284,6 +284,20 @@ void test_future() {
     assert(f.get() == 1729);
 }
 
+#if TEST_STANDARD >= 23
+void test_generator() {
+    using namespace std;
+    puts("Testing <generator>.");
+    auto some_ints = [](int hi) -> generator<int> {
+        for (int i = 0; i < hi; ++i) {
+            co_yield i;
+        }
+    };
+    constexpr int bound = 42;
+    assert(ranges::equal(some_ints(bound), views::iota(0, bound)));
+}
+#endif // TEST_STANDARD >= 23
+
 void test_initializer_list() {
     using namespace std;
     puts("Testing <initializer_list>.");
@@ -743,17 +757,11 @@ constexpr bool impl_test_source_location() {
     assert(sl.line() == __LINE__ - 1);
     assert(sl.column() == 38);
 
-#ifdef __EDG__ // TRANSITION, DevCom-10199227
-#define TEST_DETAILED_FUNCTION_NAME 0
-#else // ^^^ workaround / no workaround vvv
-#define TEST_DETAILED_FUNCTION_NAME 1
-#endif // ^^^ no workaround ^^^
-
-#if TEST_DETAILED_FUNCTION_NAME
+#ifdef __EDG__
+    assert(sl.function_name() == "bool impl_test_source_location()"sv);
+#else // ^^^ EDG / Other vvv
     assert(sl.function_name() == "bool __cdecl impl_test_source_location(void)"sv);
-#else // ^^^ detailed / basic vvv
-    assert(sl.function_name() == "impl_test_source_location"sv);
-#endif // ^^^ basic ^^^
+#endif // ^^^ Other ^^^
 
     assert(string_view{sl.file_name()}.ends_with("test_header_units_and_modules.hpp"sv));
     return true;
@@ -1188,6 +1196,9 @@ void all_cpp_header_tests() {
     test_fstream();
     test_functional();
     test_future();
+#if TEST_STANDARD >= 23
+    test_generator();
+#endif // TEST_STANDARD >= 23
     test_initializer_list();
     test_iomanip();
     test_ios();
