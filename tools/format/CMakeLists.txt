@@ -1,7 +1,7 @@
 # Copyright (c) Microsoft Corporation.
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-cmake_minimum_required(VERSION 3.29.0)
+cmake_minimum_required(VERSION 3.30.0)
 project(msvc_standard_libraries_format NONE)
 
 find_program(CLANG_FORMAT
@@ -18,13 +18,13 @@ execute_process(
 )
 
 if(clang_format_version MATCHES "clang-format version ([0-9]+\.[0-9]+\.[0-9]+)")
-    set(expected_version "17.0.3")
+    set(expected_version "19.1.1")
     if(CMAKE_MATCH_1 VERSION_LESS expected_version)
-        message(FATAL_ERROR "Found clang-format ${CMAKE_MATCH_1}, older than expected ${expected_version}.")
+        message(FATAL_ERROR "Found clang-format: ${CLANG_FORMAT} (\"${CMAKE_MATCH_1}\", older than expected version \"${expected_version}\")")
     elseif(CMAKE_MATCH_1 VERSION_EQUAL expected_version)
-        message(STATUS "Found clang-format ${CMAKE_MATCH_1}.")
+        message(STATUS "Found clang-format: ${CLANG_FORMAT} (found expected version \"${CMAKE_MATCH_1}\")")
     elseif(CMAKE_MATCH_1 VERSION_GREATER expected_version)
-        message(WARNING "Found clang-format ${CMAKE_MATCH_1}, newer than expected ${expected_version}.")
+        message(WARNING "Found clang-format: ${CLANG_FORMAT} (\"${CMAKE_MATCH_1}\", newer than expected version \"${expected_version}\")")
     endif()
 else()
     message(FATAL_ERROR "Unexpected `clang-format --version` output: '${clang_format_version}'")
