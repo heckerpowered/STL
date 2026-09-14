@@ -465,6 +465,16 @@ public:
         return _Mydata[_Off];
     }
 
+#if _HAS_CXX26
+    _NODISCARD constexpr reference at(const size_type _Off) const {
+        if (_Off >= _Mysize) {
+            _Xrange();
+        }
+
+        return _Mydata[_Off];
+    }
+#endif // _HAS_CXX26
+
     _NODISCARD constexpr reference front() const noexcept /* strengthened */ {
 #if _MSVC_STL_HARDENING_SPAN || _ITERATOR_DEBUG_LEVEL != 0
         _STL_VERIFY(_Mysize > 0, "front() called on empty span");
@@ -530,6 +540,10 @@ public:
         return rend();
     }
 #endif // _HAS_CXX23
+
+    [[noreturn]] static void _Xrange() {
+        _Xout_of_range("invalid span subscript");
+    }
 
     _NODISCARD constexpr pointer _Unchecked_begin() const noexcept {
         return _Mydata;

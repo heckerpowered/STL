@@ -413,6 +413,7 @@
 // _HAS_CXX26 controls:
 // P1383R2 More constexpr For <cmath> And <complex>
 //     (partial implementation)
+// P2821R5 span::at()
 
 // Parallel Algorithms Notes
 // C++ allows an implementation to implement parallel algorithms as calls to the serial algorithms.
@@ -1746,7 +1747,6 @@ _EMIT_STL_ERROR(STL1004, "C++98 unexpected() is incompatible with C++23 unexpect
 #define __cpp_lib_semaphore               201907L
 #define __cpp_lib_smart_ptr_for_overwrite 202002L
 #define __cpp_lib_source_location         201907L
-#define __cpp_lib_span                    202002L
 #define __cpp_lib_ssize                   201902L
 #define __cpp_lib_starts_ends_with        201711L
 #define __cpp_lib_syncbuf                 201803L
@@ -1892,6 +1892,12 @@ _EMIT_STL_ERROR(STL1004, "C++98 unexpected() is incompatible with C++23 unexpect
 #define __cpp_lib_variant 202106L // P2231R1 Completing constexpr In optional And variant
 #elif _HAS_CXX17
 #define __cpp_lib_variant 202102L // P2162R2 Inheriting From variant
+#endif
+
+#if _HAS_CXX26
+#define __cpp_lib_span 202311L // P2821R5 span::at(), P2833R2 Freestanding Library: inout expected span
+#elif _HAS_CXX20
+#define __cpp_lib_span 202002L // P0122R7 <span>
 #endif
 
 #ifdef _RTC_CONVERSION_CHECKS_ENABLED

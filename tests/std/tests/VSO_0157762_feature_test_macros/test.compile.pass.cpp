@@ -927,7 +927,9 @@ STATIC_ASSERT(__cpp_lib_source_location == 201907L);
 #error __cpp_lib_source_location is defined
 #endif
 
-#if _HAS_CXX20
+#if _HAS_CXX26
+STATIC_ASSERT(__cpp_lib_span == 202311L);
+#elif _HAS_CXX20
 STATIC_ASSERT(__cpp_lib_span == 202002L);
 #elif defined(__cpp_lib_span)
 #error __cpp_lib_span is defined

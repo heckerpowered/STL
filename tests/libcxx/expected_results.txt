@@ -376,10 +376,6 @@ std/utilities/const.wrap.class/subscript.pass.cpp FAIL
 std/utilities/const.wrap.class/types.compile.pass.cpp FAIL
 std/utilities/const.wrap.class/unary_ops.pass.cpp FAIL
 
-# P2821R5 span::at()
-# Add 'std-at-least-c++26' to tests/utils/stl/test/tests.py when beginning work on C++26.
-std/containers/views/views.span/span.elem/at.pass.cpp FAIL
-
 # P2835R7 atomic_ref::address()
 # Add 'std-at-least-c++26' to tests/utils/stl/test/tests.py when beginning work on C++26.
 std/atomics/atomics.ref/address.pass.cpp FAIL
